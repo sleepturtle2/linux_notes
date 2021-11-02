@@ -38,9 +38,54 @@ Redirecting Standard Output: cat 1> output.txt would overwrite. cat 1>> output.t
 
 Redirecting Standard Error: cat 2>> error.txt 
 
+## Piping 
+Uses the output of one command into the input of another command. 
+```
+date 1> date.txt
+cut 0< date.txt --delimiter " " --fields 1
+```
+Here we use input of cut from date.txt file. 
+```
+date | cut --delimiter " " --fields 1
+```
+Here we pipe the output of date directly into cut. 
+
+### Piping to more than one places:
+Conventionally data can be streamed to only one place. For eg, in the above example, if we want to store the date in a file and then use that as input for the cut command, that will not work, as the output from date is streamed into date.txt. 
+Example of what will NOT work: 
+```
+date 1> date.txt | cut --delimiter " " --fields 1
+```
+### tee Command: 
+This command enables 2 way show, just like the shape T. The horizontal flow is uninterrupted, and a vertical flow is added to the tee command argument. 
+Example: 
+```
+date | tee date.txt | cut --delimiter " " --fields 1
+```
+Now output of date is stored in date.txt. Also the horizontal data flow remains uninterrupted. 
+
+### xargs Command: 
+Piping redirects the output of commands(STDOUT) to be the input(STDIN) of some other commands. However, some commands accept only command line arguments. This is where 'xargs' comes in.  
+Example: 
+```
+date | echo
+```
+Doesnt work cause echo accepts only command line args. Use this : 
+```
+date | xargs echo 
+```
+We can also pass xargs and CLA together. However echo will process the CLA first. Same with 'rm' command. Let file 'filesToDelete.txt' contain 'fileA.txt' and 'fileB.txt'. 
+```
+cat filesToDelete.txt | rm
+```
+ does not work. Instead : 
+ ```
+ cat filesToDelete.txt | xargs rm 
+ ```
+
 Misc: 
-cal - Calendar for the current month
-^L - clear
-!4 - will run the 4th command (having line number 4) from history
-exit - close terminal
-which - locates the folder where command is present 
+- cal - Calendar for the current month
+- ^L - clear
+- !4 - will run the 4th command (having line number 4) from history
+- exit - close terminal
+- which - locates the folder where command is present 
