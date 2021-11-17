@@ -65,7 +65,7 @@ date | tee date.txt | cut --delimiter " " --fields 1
 Now output of date is stored in date.txt. Also the horizontal data flow remains uninterrupted. 
 
 ### xargs Command: 
-Piping redirects the output of commands(STDOUT) to be the input(STDIN) of some other commands. However, some commands accept only command line arguments. This is where 'xargs' comes in.  
+Piping redirects the output of commands(STDOUT) to be the input(STDIN) of some other commands. However, some commands accept only command line arguments. This is where 'xargs' comes in.  If a command does not accept STDIN, but you want to pipe it, use xargs. Commands we use with xargs can still have their own arguments (processed first)
 Example: 
 ```
 date | echo
@@ -83,6 +83,13 @@ cat filesToDelete.txt | rm
  cat filesToDelete.txt | xargs rm 
  ```
 
+ ## Aliases 
+Aliases are stored in a file '.bash_aliases' in the home folder. 
+Format : 
+```
+alias commandAlias='_TYPE COMMAND HERE_'
+```
+You can also use aliases inside another pipeline.
 Misc: 
 - cal - Calendar for the current month
 - ^L - clear
