@@ -18,3 +18,6 @@ Kill session: tmux kill-session -t [NAME_OF_TARGET_SESSION]
 
 Close : exit
 
+# wmctrl
+window manager control. 
+check which window manager is running :     wmctrl -m 
